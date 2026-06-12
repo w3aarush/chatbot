@@ -75,24 +75,4 @@ def chatbot():
 
             print("thanks buddy, now I know. Try asking my again.")
             continue
-'''
-        text_num = None
-        if message in user_input:
-            for num, text in i1:
-                if text==message:
-                    text_num = num
-        else:
-            print("sorry, didn't get that")
-            user_input.append(message)
-            print('please tell me, what should have been my response here.')
-            new_response = input()
-            response_msg.append(new_response)
-            i1 = list(enumerate(user_input))
-            r1 = list(enumerate(response_msg))
-            print('thanx buddy, now I know. Try asking me again.')
-            continue
-        for num, text in r1:
-            if num == text_num:
-                print(f'bot: => {text}')
-'''
 chatbot()
