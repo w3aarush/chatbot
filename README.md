@@ -1,6 +1,6 @@
-# Chatbot Collection
+# Chatbot
 
-This repository contains four versions of a Python chatbot project, each demonstrating a different conversational approach.
+This repository contains four versions of a Python chatbot project, each demonstrating a different conversational approach. I worked on this project during my master's at Patna University in December 2025. 
 
 ## Overview
 
