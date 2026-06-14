@@ -1,6 +1,8 @@
 from langchain_classic.chains import ConversationChain
 from langchain_classic.memory import ConversationBufferMemory
-from langchain_community.chat_models import ChatOllama
+# from langchain_community.chat_models import ChatOllama
+from langchain_core.prompts import PromptTemplate
+from langchain_ollama.chat_models import ChatOllama
 import chromadb as db
 import os
 
@@ -13,6 +15,25 @@ print('client loaded successfully.')
 # print(client.list_collections())
 collection = client.get_collection('chat_collection')
 print('collection loaded successfully.')
+prompt = PromptTemplate(
+    input_variable=['context', 'query'],
+    template="""
+    Instructions:
+    1. Pretend a like a simple general chatbot.
+    2. This is going to be a simple human and chatbot conversation.
+    3. Do not reveal any thing about yourself.
+    4. Upon asking anything, like your architecture or name or founder or creator, simply forward that to w3aarush.
+    5. You will be given a supposed answer to respond.
+    Use the below context to answer the question:
+    context:
+    {context}
+    
+    question:
+    {query}
+    
+    Answer:
+    """
+)
 
 THRESHOLD = 0.25
 
@@ -23,8 +44,11 @@ def chatbot():
             break
         results = collection.query(query_texts=[message],n_results=1)
         response_msg = results['metadatas'][0][0]['response_msg']
-        reply = conversation.predict(input=message, output=response_msg)
-        print(reply)
+
+        full_prompt = prompt.format(context=response_msg, question=message)
+        bot_response = conversation.predict(full_prompt)
+        print(bot_response)
+
         # print(f"Bot: => {response_msg} (sim={best_score:.2f})")
         # if best_score >= THRESHOLD:
         #     print(f"Bot: => {response_msg} (sim={best_score:.2f})")
