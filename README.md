@@ -1,15 +1,17 @@
 Phase 1
 ```
-User
+User Query
  ↓
-Sentence Transformer
+Vector Search
  ↓
 ChromaDB
  ↓
-Retrieve relevant context
- ↓
-Ollama LLM
- ↓
+Found --- "YES" --> Use stored response
+        |-- "NO" --> Ask LLM
+
+   ↓
+   ↓
+   ↓
 Answer
 ```
 
